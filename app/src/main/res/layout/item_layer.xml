@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp">
+
+    <ImageView
+        android:id="@+id/layer_visible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:src="@drawable/ic_eye"
+        android:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/layer_imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_toEndOf="@id/layer_visible"
+        android:background="@drawable/page_preview_background"
+        android:layout_margin="10dp"
+        android:longClickable="true"
+        android:scaleType="fitXY"
+        android:adjustViewBounds="true" />
+
+
+    <TextView
+        android:id="@+id/layer_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="layer name"
+        android:layout_below="@id/layer_imageView"
+        android:layout_centerHorizontal="true"
+        android:longClickable="true"
+        android:clickable="true"
+        android:focusable="true" />
+
+</RelativeLayout>

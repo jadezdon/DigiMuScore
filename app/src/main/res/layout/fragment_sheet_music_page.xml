@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="com.zhouppei.digimuscore.ui.sheetmusicpage.SheetMusicPageViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.sheetmusicpage.SheetMusicPageFragment"
+        android:background="@color/lightgrey">
+
+        <RelativeLayout
+            android:id="@+id/sheetMusicPage_toolbar_top"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/layout_margin_horizontal"
+            android:layout_marginVertical="@dimen/layout_margin_vertical">
+
+            <ImageView
+                android:id="@+id/sheetMusicPage_button_back"
+                android:layout_width="@dimen/icon_size"
+                android:layout_height="@dimen/icon_size"
+                android:clickable="true"
+                android:focusable="true"
+                android:src="@drawable/ic_arrow_back"
+                android:layout_centerVertical="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{`page ` + viewmodel.currentPage.pageNumber}"
+                android:textSize="@dimen/font_size_heading_3"
+                tools:text="page 1"
+                android:layout_centerInParent="true" />
+
+            <ImageView
+                android:id="@+id/sheetMusicPage_button_menu"
+                android:layout_width="@dimen/icon_size"
+                android:layout_height="@dimen/icon_size"
+                android:src="@drawable/ic_option_menu"
+                android:clickable="true"
+                android:focusable="true"
+                android:layout_alignParentEnd="true" />
+
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/sheetMusicPage_image_page"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/sheetMusicPage_toolbar_top"
+            app:imageFromUri="@{viewmodel.currentPage.contentUri}" />
+
+    </RelativeLayout>
+
+</layout>

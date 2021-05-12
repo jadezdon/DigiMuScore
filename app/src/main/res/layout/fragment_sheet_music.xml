@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="com.zhouppei.digimuscore.ui.sheetmusic.SheetMusicViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.sheetmusic.SheetMusicFragment"
+        android:background="@color/lightergrey">
+
+        <RelativeLayout
+            android:id="@+id/sheetMusic_toolbar_top"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/layout_margin_horizontal"
+            android:layout_marginVertical="@dimen/layout_margin_vertical">
+
+            <RelativeLayout
+                android:id="@+id/sheetMusic_toolbarbuttons_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp">
+
+                <ImageView
+                    android:id="@+id/sheetMusic_button_back"
+                    android:layout_width="@dimen/icon_size"
+                    android:layout_height="@dimen/icon_size"
+                    android:layout_gravity="center_vertical"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:src="@drawable/ic_arrow_back" />
+
+                <ImageView
+                    android:id="@+id/sheetMusic_button_menu"
+                    android:layout_width="@dimen/icon_size"
+                    android:layout_height="@dimen/icon_size"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:layout_alignParentEnd="true"
+                    android:src="@drawable/ic_option_menu"
+                    android:layout_centerVertical="true" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/sheetMusic_text_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{viewmodel.sheetMusic.title}"
+                android:textSize="@dimen/font_size_heading_3"
+                android:layout_below="@id/sheetMusic_toolbarbuttons_layout"
+                tools:text="Sheet music title" />
+
+            <TextView
+                android:id="@+id/sheetMusic_text_author"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{viewmodel.sheetMusic.author}"
+                tools:text="Sheet music author"
+                android:layout_below="@id/sheetMusic_text_title" />
+
+        </RelativeLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/sheetMusic_recyclerview"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/sheetMusic_toolbar_top"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="8dp"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            tools:listitem="@layout/item_sheet_music_page" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:padding="@dimen/padding_horizontal">
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/sheetMusic_fab_add_scan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_add_scan"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toTopOf="@id/sheetMusic_fab_add_img"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:tint="@color/icons" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/sheetMusic_fab_add_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_add_photo"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toTopOf="@id/sheetMusic_fab_add_pdf"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:tint="@color/icons" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/sheetMusic_fab_add_pdf"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_add_pdf"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toTopOf="@id/sheetMusic_fab_add"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:tint="@color/icons" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/sheetMusic_fab_add"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_add"
+                app:fabSize="normal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:tint="@color/icons" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </RelativeLayout>
+</layout>

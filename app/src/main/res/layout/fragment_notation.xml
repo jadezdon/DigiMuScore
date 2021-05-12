@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="com.zhouppei.digimuscore.ui.notation.SharedViewModel" />
+    </data>
+
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/notation_drawerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:openDrawer="end">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.zhouppei.digimuscore.view.LockableHorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fillViewport="true">
+
+                    <com.zhouppei.digimuscore.view.LockableScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:fillViewport="true">
+
+                        <com.zhouppei.digimuscore.view.ZoomableViewGroup
+                            android:id="@+id/notation_layout_content"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@color/lightgrey">
+
+                            <com.zhouppei.digimuscore.view.NotationView
+                                android:id="@+id/notation_notationView"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center" />
+
+                        </com.zhouppei.digimuscore.view.ZoomableViewGroup>
+
+                    </com.zhouppei.digimuscore.view.LockableScrollView>
+                </com.zhouppei.digimuscore.view.LockableHorizontalScrollView>
+
+
+                <com.google.android.material.slider.Slider
+                    android:id="@+id/notation_slider_scale"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@id/notation_bottomNav"
+                    android:layout_alignParentEnd="true"
+                    android:layout_margin="@dimen/layout_margin_horizontal"
+                    android:background="@drawable/background_round_corner"
+                    android:backgroundTint="@color/accent"
+                    android:padding="0dp"
+                    android:stepSize="1"
+                    android:value="12"
+                    android:valueFrom="10"
+                    android:valueTo="100"
+                    android:visibility="invisible" />
+
+                <com.google.android.material.bottomnavigation.BottomNavigationView
+                    android:id="@+id/notation_bottomNav"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="@dimen/layout_margin_horizontal"
+                    android:background="@drawable/background_round_corner"
+                    android:paddingVertical="2dp"
+                    android:theme="@style/AppThemeMaterial"
+                    app:backgroundTint="@color/accent"
+                    app:itemIconTint="@color/bottom_nav_view_color"
+                    app:labelVisibilityMode="unlabeled"
+                    app:menu="@menu/notation_bottom_app_bar" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/layout_margin_horizontal"
+                android:layout_marginVertical="@dimen/layout_margin_vertical">
+
+                <TextView
+                    android:id="@+id/notation_button_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:text="DONE"
+                    android:textStyle="bold"
+                    android:textColor="@color/accent"
+                    android:textSize="@dimen/font_size_heading_3" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="10dp"
+                    android:background="@drawable/background_round_corner"
+                    android:backgroundTint="@color/accent">
+
+                    <ImageView
+                        android:id="@+id/notation_button_undo"
+                        android:layout_width="@dimen/icon_size"
+                        android:layout_height="@dimen/icon_size"
+                        android:layout_marginEnd="10dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:src="@drawable/ic_undo"
+                        app:tint="@color/white" />
+
+                    <ImageView
+                        android:id="@+id/notation_button_save"
+                        android:layout_width="@dimen/icon_size"
+                        android:layout_height="@dimen/icon_size"
+                        android:layout_marginEnd="10dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:src="@drawable/ic_save"
+                        app:tint="@color/white" />
+
+                    <ImageView
+                        android:id="@+id/notation_button_layers"
+                        android:layout_width="@dimen/icon_size"
+                        android:layout_height="@dimen/icon_size"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:src="@drawable/ic_layers"
+                        app:tint="@color/white" />
+                </LinearLayout>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/notation_sidebar_layers"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="end">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/notation_button_addLayer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="15dp"
+                    android:text="Add layer"
+                    app:icon="@drawable/ic_add"
+                    app:iconSize="20dp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/notation_recyclerview_layers"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/item_layer" />
+
+            </LinearLayout>
+        </com.google.android.material.navigation.NavigationView>
+    </androidx.drawerlayout.widget.DrawerLayout>
+</layout>

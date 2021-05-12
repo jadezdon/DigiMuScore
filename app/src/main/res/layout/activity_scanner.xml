@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.scanner.ScannerActivity"
+    android:background="@color/black">
+
+    <RelativeLayout
+        android:id="@+id/scanner_camera_mode_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.camera.view.PreviewView
+            android:id="@+id/scanner_previewView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true" />
+
+        <com.zhouppei.digimuscore.view.Overlay
+            android:id="@+id/scanner_preview_overlay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@id/scanner_previewView"
+            android:layout_alignEnd="@+id/scanner_previewView"
+            android:layout_alignTop="@+id/scanner_previewView"
+            android:layout_alignBottom="@+id/scanner_previewView" />
+
+        <ImageView
+            android:id="@+id/scanner_button_back"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="@dimen/fab_margin"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/ic_arrow_back"
+            android:background="@drawable/background_round_corner" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/scanner_fab_capture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerInParent="true"
+            android:layout_margin="@dimen/fab_margin"
+            android:src="@drawable/ic_capture"
+            app:tint="@color/white" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/scanner_edit_mode_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/scanner_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true" />
+
+        <com.zhouppei.digimuscore.view.Overlay
+            android:id="@+id/scanner_image_overlay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@id/scanner_image"
+            android:layout_alignEnd="@+id/scanner_image"
+            android:layout_alignTop="@+id/scanner_image"
+            android:layout_alignBottom="@+id/scanner_image" />
+
+        <RelativeLayout
+            android:id="@+id/scanner_confirm_buttons_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/scanner_button_cancel"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_margin="@dimen/fab_margin"
+                android:clickable="true"
+                android:focusable="true"
+                android:src="@drawable/ic_arrow_back"
+                android:background="@drawable/background_round_corner" />
+
+            <TextView
+                android:id="@+id/scanner_button_ok"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/fab_margin"
+                android:clickable="true"
+                android:focusable="true"
+                android:text="DONE"
+                android:layout_alignParentEnd="true"
+                android:textColor="@color/primary"
+                android:textStyle="bold"
+                android:textSize="@dimen/font_size_heading_3"
+                android:layout_centerVertical="true" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/scanner_edit_buttons_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_alignParentBottom="true"
+            android:paddingVertical="@dimen/bottomSheet_padding_vertical">
+
+            <ImageView
+                android:id="@+id/scanner_button_clear"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:src="@drawable/ic_cancel"
+                app:tint="@color/white"
+                android:layout_weight="1" />
+
+            <ImageView
+                android:id="@+id/scanner_button_rotate"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:src="@drawable/ic_rotate_right"
+                app:tint="@color/white"
+                android:layout_weight="1" />
+
+            <ImageView
+                android:id="@+id/scanner_button_sharpen"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:src="@drawable/ic_sharpen"
+                app:tint="@color/white"
+                android:layout_weight="1" />
+
+            <ImageView
+                android:id="@+id/scanner_button_whiteBlack"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:src="@drawable/ic_convert_to_black_white"
+                app:tint="@color/white"
+                android:layout_weight="1" />
+
+            <ImageView
+                android:id="@+id/scanner_button_greyScale"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:src="@drawable/ic_greyscale"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

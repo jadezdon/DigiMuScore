@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.zhouppei.digimuscore.ui.home.HomeFragment"
+        android:label="HomeFragment"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_homeFragment_to_sheetMusicFragment"
+            app:destination="@id/SheetMusicFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_settingsActivity"
+            app:destination="@id/settingsActivity" />
+    </fragment>
+    <fragment
+        android:id="@+id/SheetMusicFragment"
+        android:name="com.zhouppei.digimuscore.ui.sheetmusic.SheetMusicFragment"
+        android:label="SheetMusicFragment"
+        tools:layout="@layout/fragment_sheet_music">
+        <argument
+            android:name="sheetMusicId"
+            app:argType="integer" />
+        <action
+            android:id="@+id/go_to_scanner_activity"
+            app:destination="@id/scannerActivity" />
+        <action
+            android:id="@+id/action_SheetMusicFragment_to_sheetMusicPageFragment"
+            app:destination="@id/sheetMusicPageFragment" />
+        <action
+            android:id="@+id/action_SheetMusicFragment_to_pageTurnerFragment"
+            app:destination="@id/pageTurnerFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/drawBottomSheetFragment"
+        android:name="com.zhouppei.digimuscore.ui.notation.bottomsheets.DrawBottomSheetFragment"
+        android:label="DrawBottomSheetFragment" />
+    <dialog
+        android:id="@+id/noteBottomSheetFragment"
+        android:name="com.zhouppei.digimuscore.ui.notation.bottomsheets.NoteBottomSheetFragment"
+        android:label="NoteBottomSheetFragment" />
+    <dialog
+        android:id="@+id/textBottomSheetFragment"
+        android:name="com.zhouppei.digimuscore.ui.notation.bottomsheets.TextBottomSheetFragment"
+        android:label="TextBottomSheetFragment" />
+    <fragment
+        android:id="@+id/notationFragment"
+        android:name="com.zhouppei.digimuscore.ui.notation.NotationFragment"
+        android:label="NotationFragment">
+        <action
+            android:id="@+id/notationFragment_open_textBottomSheetFragment"
+            app:destination="@id/textBottomSheetFragment" />
+        <action
+            android:id="@+id/notationFragment_open_drawBottomSheetFragment"
+            app:destination="@id/drawBottomSheetFragment" />
+        <action
+            android:id="@+id/notationFragment_open_noteBottomSheetFragment"
+            app:destination="@id/noteBottomSheetFragment" />
+        <action
+            android:id="@+id/notationFragment_open_eraserBottomSheetFragment"
+            app:destination="@id/eraserBottomSheetFragment" />
+        <argument
+            android:name="sheetMusicPageId"
+            app:argType="integer" />
+    </fragment>
+    <activity
+        android:id="@+id/scannerActivity"
+        android:name="com.zhouppei.digimuscore.ui.scanner.ScannerActivity"
+        android:label="activity_scanner"
+        tools:layout="@layout/activity_scanner" />
+    <dialog
+        android:id="@+id/eraserBottomSheetFragment"
+        android:name="com.zhouppei.digimuscore.ui.notation.bottomsheets.EraserBottomSheetFragment"
+        android:label="EraserBottomSheetFragment" />
+    <fragment
+        android:id="@+id/sheetMusicPageFragment"
+        android:name="com.zhouppei.digimuscore.ui.sheetmusicpage.SheetMusicPageFragment"
+        android:label="fragment_sheet_music_page"
+        tools:layout="@layout/fragment_sheet_music_page">
+        <action
+            android:id="@+id/action_sheetMusicPageFragment_to_notationFragment"
+            app:destination="@id/notationFragment" />
+        <argument
+            android:name="sheetMusicId"
+            app:argType="integer" />
+        <argument
+            android:name="currentPageId"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_sheetMusicPageFragment_to_pageTurnerFragment"
+            app:destination="@id/pageTurnerFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/pageTurnerFragment"
+        android:name="com.zhouppei.digimuscore.ui.pageturner.PageTurnerFragment"
+        android:label="fragment_page_turner"
+        tools:layout="@layout/fragment_page_turner">
+        <argument
+            android:name="sheetMusicId"
+            app:argType="integer" />
+    </fragment>
+    <activity
+        android:id="@+id/settingsActivity"
+        android:name="com.zhouppei.digimuscore.ui.settings.SettingsActivity"
+        android:label="SettingsActivity" />
+</navigation>

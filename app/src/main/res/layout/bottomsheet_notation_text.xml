@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="sharedViewModel"
+            type="com.zhouppei.digimuscore.ui.notation.SharedViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_top_rounded_corners"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingHorizontal="@dimen/bottomSheet_padding_horizontal"
+        android:paddingVertical="@dimen/bottomSheet_padding_vertical">
+
+        <View
+            android:layout_width="30dp"
+            android:layout_height="3dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="@dimen/formGroup_marginBottom"
+            android:background="@color/grey" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/formGroup_marginBottom"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight=".6"
+                android:text="Font family"
+                android:textSize="@dimen/font_size_heading_3" />
+
+            <Spinner
+                android:id="@+id/textBottomSheet_spinner_fontFamily"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".4"
+                android:entries="@{sharedViewModel.textFontFamilyList}"
+                android:padding="10dp"
+                android:popupBackground="@color/white"
+                android:textAlignment="center" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/formGroup_marginBottom"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight=".6"
+                android:text="Font size"
+                android:textSize="@dimen/font_size_heading_3" />
+
+            <Spinner
+                android:id="@+id/textBottomSheet_spinner_textSize"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".4"
+                android:entries="@{sharedViewModel.textSizeList}"
+                android:padding="10dp"
+                android:popupBackground="@color/white"
+                android:textAlignment="center" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/formGroup_marginBottom"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight=".6"
+                android:text="Text Color"
+                android:textSize="@dimen/font_size_heading_3" />
+
+            <Button
+                android:id="@+id/textBottomSheet_button_pickColor"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".4"
+                app:colorString="@{sharedViewModel.textColor}" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight=".6"
+                android:text="Style option"
+                android:textSize="@dimen/font_size_heading_3" />
+
+            <com.google.android.material.button.MaterialButtonToggleGroup
+                android:id="@+id/textBottomSheet_toggleGroup_style"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".4"
+                android:gravity="center"
+                android:theme="@style/AppThemeMaterial"
+                app:checkedButton="@id/textBottomSheet_button_textNormal"
+                app:selectionRequired="true"
+                app:singleSelection="true">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/textBottomSheet_button_textNormal"
+                    style="@style/Widget.App.Button.OutlinedButton.IconOnly"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:icon="@drawable/ic_text_normal" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/textBottomSheet_button_textBold"
+                    style="@style/Widget.App.Button.OutlinedButton.IconOnly"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:icon="@drawable/ic_text_bold" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/textBottomSheet_button_textItalic"
+                    style="@style/Widget.App.Button.OutlinedButton.IconOnly"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:icon="@drawable/ic_text_italic" />
+
+
+            </com.google.android.material.button.MaterialButtonToggleGroup>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</layout>

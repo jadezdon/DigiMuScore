@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="sharedViewModel"
+            type="com.zhouppei.digimuscore.ui.notation.SharedViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_top_rounded_corners"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingHorizontal="@dimen/padding_horizontal">
+
+        <View
+            android:layout_width="30dp"
+            android:layout_height="3dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="@dimen/formGroup_marginBottom"
+            android:background="@color/grey" />
+
+        <com.google.android.material.button.MaterialButtonToggleGroup
+            android:id="@+id/eraserBottomSheet_toggleGroup_penStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/formGroup_marginBottom"
+            android:gravity="center"
+            android:theme="@style/AppThemeMaterial"
+            app:selectionRequired="true"
+            app:singleSelection="true">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/eraserBottomSheet_button_normalEraser"
+                style="@style/Widget.App.Button.OutlinedButton.IconOnly"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Normal eraser" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/eraserBottomSheet_button_strokeEraser"
+                style="@style/Widget.App.Button.OutlinedButton.IconOnly"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Stroke eraser" />
+
+        </com.google.android.material.button.MaterialButtonToggleGroup>
+
+        <com.google.android.material.slider.Slider
+            android:id="@+id/eraserBottomSheet_slider_eraserSize"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:stepSize="5"
+            android:value="@{sharedViewModel.eraserSize}"
+            android:valueFrom="5"
+            android:valueTo="100" />
+
+    </LinearLayout>
+</layout>

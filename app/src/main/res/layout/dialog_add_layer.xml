@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/formGroup_marginBottom"
+        android:gravity="center"
+        android:text="Create layer"
+        android:textSize="@dimen/font_size_heading_2" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/addLayer_editText_layerName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/formGroup_marginBottom"
+        android:hint="Layer name"
+        android:inputType="textNoSuggestions" />
+
+    <TextView
+        android:id="@+id/addLayer_button_save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:clickable="true"
+        android:focusable="true"
+        android:text="Create"
+        android:textAllCaps="true"
+        android:textColor="@color/lightgreen"
+        android:textStyle="bold" />
+</LinearLayout>

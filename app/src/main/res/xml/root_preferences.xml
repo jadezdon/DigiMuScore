@@ -1,0 +1,33 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory
+        android:title="Automatic page turning"
+        app:iconSpaceReserved="false">
+
+        <ListPreference
+            android:defaultValue="head_tilt"
+            android:entries="@array/motion_detection_type_entries"
+            android:entryValues="@array/motion_detection_type_values"
+            android:key="motionDetectionType"
+            android:title="Motion type"
+            app:iconSpaceReserved="false"
+            app:useSimpleSummaryProvider="true" />
+
+        <SeekBarPreference
+            android:defaultValue="3"
+            android:key="elapsedTime"
+            android:max="10"
+            android:summary="Minimum elapsed time for next detection"
+            android:title="Delay time (seconds)"
+            app:iconSpaceReserved="false"
+            app:min="1"
+            app:showSeekBarValue="true" />
+
+        <Preference
+            android:key="configMotion"
+            app:title="Configure motion sensitivity"
+            app:iconSpaceReserved="false"/>
+    </PreferenceCategory>
+
+</PreferenceScreen>

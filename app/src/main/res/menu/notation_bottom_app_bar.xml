@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/notation_action_select"
+        android:icon="@drawable/ic_select"
+        android:title="select"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/notation_action_text"
+        android:icon="@drawable/ic_text"
+        android:title="text"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/notation_action_draw"
+        android:icon="@drawable/ic_pen"
+        android:title="draw"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/notation_action_eraser"
+        android:icon="@drawable/ic_eraser"
+        android:title="eraser"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/notation_action_note"
+        android:icon="@drawable/ic_musicnote"
+        android:title="notes"
+        app:showAsAction="always"/>
+</menu>

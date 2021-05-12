@@ -1,0 +1,12 @@
+<resources>
+    <!-- automatic page turner motion detection Preference -->
+    <string-array name="motion_detection_type_entries">
+        <item>Head tilt</item>
+<!--        <item>Mouth movement</item>-->
+    </string-array>
+
+    <string-array name="motion_detection_type_values">
+        <item>head_tilt</item>
+        <!--        <item>mouth_movement</item>-->
+    </string-array>
+</resources>

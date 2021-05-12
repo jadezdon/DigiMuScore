@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="sharedViewModel"
+            type="com.zhouppei.digimuscore.ui.notation.SharedViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingHorizontal="@dimen/bottomSheet_padding_horizontal"
+        android:background="@drawable/background_top_rounded_corners">
+
+        <View
+            android:layout_width="30dp"
+            android:layout_height="3dp"
+            android:background="@color/grey"
+            android:layout_gravity="center"
+            android:layout_marginBottom="@dimen/formGroup_marginBottom" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/formGroup_marginBottom"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Pen style"
+                android:textSize="@dimen/font_size_heading_3"
+                android:layout_weight=".6"
+                android:layout_gravity="center_vertical" />
+
+            <com.google.android.material.button.MaterialButtonToggleGroup
+                android:id="@+id/drawBottomSheet_toggleGroup_penStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:singleSelection="true"
+                app:selectionRequired="true"
+                android:theme="@style/AppThemeMaterial"
+                android:layout_weight=".4"
+                android:gravity="center">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/drawBottomSheet_button_pen"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:icon="@drawable/ic_pen"
+                    style="@style/Widget.App.Button.OutlinedButton.IconOnly" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/drawBottomSheet_button_highlighter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:icon="@drawable/ic_highlighter"
+                    style="@style/Widget.App.Button.OutlinedButton.IconOnly" />
+
+            </com.google.android.material.button.MaterialButtonToggleGroup>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/formGroup_marginBottom"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Pen size"
+                android:textSize="@dimen/font_size_heading_3"
+                android:layout_weight=".6"
+                android:layout_gravity="center_vertical" />
+
+            <Spinner
+                android:id="@+id/drawBottomSheet_spinner_penSize"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".4"
+                android:padding="10dp"
+                android:popupBackground="@color/white"
+                android:textAlignment="center"
+                android:entries="@{sharedViewModel.penSizeList}" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="@dimen/formGroup_marginBottom"
+            android:weightSum="1">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Color"
+                android:textSize="@dimen/font_size_heading_3"
+                android:layout_weight=".6"
+                android:layout_gravity="center_vertical" />
+
+            <Button
+                android:id="@+id/drawBottomSheet_button_pickColor"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:colorString="@{sharedViewModel.penColor}"
+                android:layout_weight=".4" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>

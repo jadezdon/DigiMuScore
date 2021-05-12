@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/background_round_corner">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginBottom="@dimen/formGroup_marginBottom">
+
+                <RelativeLayout
+                    android:id="@+id/colorPicker_button_colorPreview"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/darkgrey"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="#"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/font_size_heading_3" />
+
+                    <EditText
+                        android:id="@+id/colorPicker_editText_colorString"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:imeOptions="actionDone"
+                        android:maxLength="8"
+                        android:paddingVertical="5dp"
+                        android:text="FFFF0000"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:background="@color/darkgrey"
+                        android:textSize="@dimen/font_size_heading_3"
+                        android:inputType="textNoSuggestions" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <SeekBar
+                android:id="@+id/colorPicker_seekbar_colorA"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/formGroup_marginBottom"
+                android:progress="255"
+                android:max="255"
+                android:thumb="@drawable/seekbar_thumb_color_a"
+                android:progressDrawable="@drawable/seekbar_progress_color_a" />
+
+            <SeekBar
+                android:id="@+id/colorPicker_seekbar_colorR"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/formGroup_marginBottom"
+                android:progress="255"
+                android:max="255"
+                android:thumb="@drawable/seekbar_thumb_color_r"
+                android:progressDrawable="@drawable/seekbar_progress_color_r" />
+
+            <SeekBar
+                android:id="@+id/colorPicker_seekbar_colorG"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/formGroup_marginBottom"
+                android:progress="255"
+                android:max="255"
+                android:thumb="@drawable/seekbar_thumb_color_g"
+                android:progressDrawable="@drawable/seekbar_progress_color_g" />
+
+            <SeekBar
+                android:id="@+id/colorPicker_seekbar_colorB"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/formGroup_marginBottom"
+                android:progress="255"
+                android:max="255"
+                android:thumb="@drawable/seekbar_thumb_color_b"
+                android:progressDrawable="@drawable/seekbar_progress_color_b" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/colorPicker_recyclerView_colorPresets"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/formGroup_marginBottom"
+                tools:listitem="@layout/item_color_button" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/colorPicker_button_cancel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="CANCEL"
+                    android:textColor="@color/accent"
+                    android:focusable="true"
+                    android:clickable="true" />
+
+                <TextView
+                    android:id="@+id/colorPicker_button_apply"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:text="APPLY"
+                    android:textColor="@color/accent"
+                    android:focusable="true"
+                    android:clickable="true" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+</layout>

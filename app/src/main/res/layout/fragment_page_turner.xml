@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.pageturner.PageTurnerFragment">
+
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="com.zhouppei.digimuscore.ui.pageturner.PageTurnerViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black">
+
+        <ImageView
+            android:id="@+id/pageTurner_image_page"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            imageFromUri="@{viewmodel.currentPage.contentUri}" />
+
+        <ImageView
+            android:id="@+id/pageTurner_image_pageNotation"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            drawLayerToBitmap="@{viewmodel.currentPage.drawLayers}" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{`` + viewmodel.currentPage.pageNumber}"
+            android:textColor="@color/white"
+            android:layout_alignParentEnd="true"
+            tools:text="1"
+            android:textSize="@dimen/font_size_heading_1"
+            android:padding="@dimen/layout_margin_horizontal" />
+
+        <RelativeLayout
+            android:id="@+id/pageTurner_face_not_detected"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            isVisible="@{viewmodel.isFaceDetected}">
+
+            <ImageView
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:src="@drawable/ic_face_detection"
+                android:layout_centerInParent="true"
+                app:tint="@color/white" />
+
+            <ImageView
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:src="@drawable/ic_cancel"
+                app:tint="@color/red"
+                android:layout_centerInParent="true" />
+
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/pageTurner_button_back"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="@dimen/fab_margin"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/ic_arrow_back"
+            android:background="@drawable/background_round_corner" />
+
+    </RelativeLayout>
+
+</layout>

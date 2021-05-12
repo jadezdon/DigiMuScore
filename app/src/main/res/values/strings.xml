@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">DigiMuScore</string>
+    <string name="page_favorite_title">Favorites</string>
+    <string name="page_home_title">Home</string>
+
+    <string-array name="sheet_music_type">
+        <item>image</item>
+        <item>xml</item>
+    </string-array>
+    <string name="title_activity_scanner">ScannerActivity</string>
+    <string name="title_activity_config_motion">ConfigMotionActivity</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="openDrawer">Open drawer</string>
+    <string name="closeDrawer">Close drawer</string>
+    <string name="save">SAVE</string>
+</resources>

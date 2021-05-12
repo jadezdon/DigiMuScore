@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="clickListener"
+            type="android.view.View.OnClickListener" />
+
+        <variable
+            name="longClickListener"
+            type="android.view.View.OnLongClickListener" />
+
+
+        <variable
+            name="sheetMusic"
+            type="com.zhouppei.digimuscore.data.models.SheetMusic" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginVertical="5dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="10dp"
+            android:longClickable="true"
+            android:onClick="@{clickListener}"
+            android:onLongClick="@{longClickListener}"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/image_sheetMusic"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_music_sheet" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_toEndOf="@id/image_sheetMusic"
+                    android:layout_toStartOf="@id/button_favorite"
+                    android:layout_marginHorizontal="7dp">
+
+                    <TextView
+                        android:id="@+id/text_sheetMusicTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:text="@{sheetMusic.title}"
+                        android:textSize="@dimen/font_size_heading_3"
+                        tools:text="sheet music title" />
+
+                    <TextView
+                        android:id="@+id/text_sheetMusicAuthor"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:text="@{sheetMusic.author}"
+                        android:textSize="@dimen/font_size_small"
+                        tools:text="author" />
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/button_favorite"
+                    isFavorite="@{sheetMusic.favorite}"
+                    android:layout_width="@dimen/icon_size"
+                    android:layout_height="@dimen/icon_size"
+                    android:clickable="true"
+                    android:layout_alignParentEnd="true"
+                    android:focusable="true"
+                    android:layout_centerVertical="true" />
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+</layout>
