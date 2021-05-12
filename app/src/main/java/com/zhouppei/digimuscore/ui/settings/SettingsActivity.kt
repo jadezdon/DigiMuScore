@@ -3,6 +3,7 @@ package com.zhouppei.digimuscore.ui.settings
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.zhouppei.digimuscore.R
+import kotlinx.android.synthetic.main.activity_settings.*
 
 class SettingsActivity : AppCompatActivity() {
 

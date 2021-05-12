@@ -8,9 +8,12 @@ import com.zhouppei.digimuscore.data.models.SheetMusic
 import com.zhouppei.digimuscore.data.repositories.FolderRepository
 import com.zhouppei.digimuscore.data.repositories.SheetMusicPageRepository
 import com.zhouppei.digimuscore.data.repositories.SheetMusicRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class HomeViewModel @ViewModelInject internal constructor(
+@HiltViewModel
+class HomeViewModel @Inject constructor(
     private val folderRepository: FolderRepository,
     private val sheetMusicRepository: SheetMusicRepository,
     private val sheetMusicPageRepository: SheetMusicPageRepository

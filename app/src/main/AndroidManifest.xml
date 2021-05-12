@@ -20,12 +20,13 @@
         android:required="true" />
 
     <application
+        android:name=".MusicNotationApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.DigiMuScore">
+        android:theme="@style/AppThemeMaterial">
 
         <activity
             android:name=".ui.configmotion.ConfigMotionActivity"

@@ -21,6 +21,10 @@ import com.google.android.material.snackbar.Snackbar
 import com.zhouppei.digimuscore.R
 import com.zhouppei.digimuscore.utils.Constants
 import com.zhouppei.digimuscore.ui.pageturner.MotionAnalyzer
+import com.zhouppei.digimuscore.ui.pageturner.MotionConfig
+import com.zhouppei.digimuscore.ui.pageturner.MotionListener
+import com.zhouppei.digimuscore.ui.pageturner.MotionResult
+import kotlinx.android.synthetic.main.activity_config_motion.*
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import kotlin.math.abs
@@ -148,6 +152,7 @@ class ConfigMotionActivity : AppCompatActivity() {
                 finish()
             }
         }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
     @SuppressLint("RestrictedApi")

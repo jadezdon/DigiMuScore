@@ -18,7 +18,7 @@ class SheetMusicPageViewModel @AssistedInject constructor(
     val sheetMusicPages = sheetMusicPageRepository.getAllBySheetMusicId(sheetMusicId)
     val currentPage = MutableLiveData<SheetMusicPage>()
 
-    @AssistedFactory
+    @AssistedInject.Factory
     interface SheetMusicPageAssistedFactory {
         fun create(sheetMusicId: Int, currentPageId: Int): SheetMusicPageViewModel
     }

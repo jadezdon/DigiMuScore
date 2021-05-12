@@ -7,6 +7,7 @@ import com.squareup.inject.assisted.Assisted
 import com.squareup.inject.assisted.AssistedInject
 import com.zhouppei.digimuscore.data.models.SheetMusicPage
 import com.zhouppei.digimuscore.data.repositories.SheetMusicPageRepository
+import dagger.assisted.AssistedFactory
 
 class PageTurnerViewModel @AssistedInject constructor(
     private val sheetMusicPageRepository: SheetMusicPageRepository,
