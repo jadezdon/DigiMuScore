@@ -20,7 +20,10 @@ import com.zhouppei.digimuscore.R
 import com.zhouppei.digimuscore.adapters.ActionCompletionContract
 import com.zhouppei.digimuscore.adapters.SheetMusicPageListAdapter
 import com.zhouppei.digimuscore.adapters.SwipeAndDragHandler
+import com.zhouppei.digimuscore.data.models.SheetMusic
 import com.zhouppei.digimuscore.databinding.FragmentSheetMusicBinding
+import com.zhouppei.digimuscore.ui.home.dialog.AddSheetMusicDialog
+import com.zhouppei.digimuscore.ui.home.dialog.AddSheetMusicDialogListener
 import com.zhouppei.digimuscore.ui.scanner.ScannerActivity
 import com.zhouppei.digimuscore.utils.BitmapUtil
 import com.zhouppei.digimuscore.utils.Constants
@@ -58,6 +61,8 @@ class SheetMusicFragment : Fragment() {
     private val fabFromBottom: Animation by lazy { AnimationUtils.loadAnimation(context, R.anim.fab_from_bottom_anim) }
     private val fabToBottom: Animation by lazy { AnimationUtils.loadAnimation(context, R.anim.fab_to_bottom_anim) }
     private var isAddFabClicked = false
+
+    private lateinit var mAddSheetMusicDialog: AddSheetMusicDialog
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -140,6 +145,25 @@ class SheetMusicFragment : Fragment() {
                 val direction =
                     SheetMusicFragmentDirections.actionSheetMusicFragmentToPageTurnerFragment(mArgs.sheetMusicId)
                 findNavController().navigate(direction)
+                true
+            }
+            "Rename" -> {
+                mViewModel.sheetMusic.value?.let {
+                    mAddSheetMusicDialog =
+                        AddSheetMusicDialog(
+                            requireContext(),
+                            object :
+                                AddSheetMusicDialogListener {
+                                override fun onAddButtonClicked(
+                                    sheetmusic: SheetMusic
+                                ) {
+                                    mViewModel.updateSheetMusic(sheetmusic)
+                                }
+                            },
+                            it
+                        )
+                    mAddSheetMusicDialog.show()
+                }
                 true
             }
             else -> false
@@ -269,8 +293,15 @@ class SheetMusicFragment : Fragment() {
             })
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        if (this::mAddSheetMusicDialog.isInitialized) {
+            mAddSheetMusicDialog.dismiss()
+        }
+    }
+
     companion object {
         private val TAG = SheetMusicFragment::class.qualifiedName
-        private val optionMenuItems = listOf("Play mode")
+        private val optionMenuItems = listOf("Play mode", "Rename")
     }
 }

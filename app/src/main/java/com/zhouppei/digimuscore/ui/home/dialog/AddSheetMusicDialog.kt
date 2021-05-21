@@ -6,11 +6,13 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatDialog
 import com.zhouppei.digimuscore.R
+import com.zhouppei.digimuscore.data.models.SheetMusic
 import kotlinx.android.synthetic.main.dialog_add_sheet_music.*
 
 class AddSheetMusicDialog(
     context: Context,
-    private var addSheetMusicDialogListener: AddSheetMusicDialogListener
+    private var addSheetMusicDialogListener: AddSheetMusicDialogListener,
+    private val sheetmusic: SheetMusic? = null
 ) : AppCompatDialog(context) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,20 +23,31 @@ class AddSheetMusicDialog(
         window?.setLayout((metrics.widthPixels * 0.8).toInt(), ViewGroup.LayoutParams.WRAP_CONTENT)
         window?.setBackgroundDrawableResource(R.drawable.background_dialog)
 
-        home_button_add_sheet_music.setOnClickListener {
-            val author = home_editText_sheetMusicAuthor.text.toString()
-            val title = home_editText_sheetMusicTitle.text.toString()
+        sheetmusic?.let {
+            addSheetMusic_editText_title.setText(it.title)
+            addSheetMusic_editText_author.setText(it.author)
+            addSheetMusic_button_add.text = "SAVE"
+            addSheetMusic_dialogTitle.text = "Edit sheet music"
+        }
 
-            if (author.isEmpty() || title.isEmpty()) {
+        addSheetMusic_button_add.setOnClickListener {
+            val title = addSheetMusic_editText_title.text.toString()
+            val author = addSheetMusic_editText_author.text.toString()
+
+            if (author.isBlank() || title.isBlank()) {
                 Toast.makeText(context, "Please fill all fields", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            addSheetMusicDialogListener.onAddButtonClicked(author, title)
-            dismiss()
-        }
-
-        home_button_cancel.setOnClickListener {
+            if (sheetmusic == null) {
+                addSheetMusicDialogListener.onAddButtonClicked(SheetMusic(author = author, title = title, folderId = null))
+            } else {
+                sheetmusic.let {
+                    it.author = author
+                    it.title = title
+                    addSheetMusicDialogListener.onAddButtonClicked(it)
+                }
+            }
             dismiss()
         }
     }

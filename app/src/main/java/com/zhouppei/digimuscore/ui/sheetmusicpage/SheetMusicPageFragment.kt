@@ -44,11 +44,12 @@ class SheetMusicPageFragment : Fragment() {
             lifecycleOwner = viewLifecycleOwner
         }
 
-        mViewModel.sheetMusicPages.observe(viewLifecycleOwner, Observer {
-            val page = it.find { page ->
+        mViewModel.sheetMusicPages.observe(viewLifecycleOwner, Observer { sheetMusicPages ->
+            sheetMusicPages.find { page ->
                 page.id == mArgs.currentPageId
+            }?.let {
+                mViewModel.currentPage.postValue(it)
             }
-            mViewModel.currentPage.postValue(page)
         })
 
         return binding.root

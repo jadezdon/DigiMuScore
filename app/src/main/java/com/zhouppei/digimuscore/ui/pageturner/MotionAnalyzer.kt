@@ -17,14 +17,14 @@ import kotlin.math.abs
 
 class MotionAnalyzer(
     private val motionConfig: MotionConfig,
-    private val listener: MotionListener
+    private val listener: MotionListener,
+    private val DEBUGGING: Boolean = false
 ) : ImageAnalysis.Analyzer {
     private val detector: FaceDetector
     private val lastFrames: Queue<Face> = LinkedList<Face>()
     private var faceId: Int = -1
     private var lastDetectedTime: Long = -1
 
-    private val DEBUGGING = true
 
     companion object {
         private const val MAX_TOTAL_FRAMES_SIZE = 10

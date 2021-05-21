@@ -31,6 +31,7 @@
         <activity
             android:name=".ui.configmotion.ConfigMotionActivity"
             android:label="@string/title_activity_config_motion"
+            android:screenOrientation="portrait"
             android:theme="@style/AppThemeMaterial.NoActionBar" />
         <activity
             android:name=".ui.settings.SettingsActivity"

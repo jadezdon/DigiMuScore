@@ -130,7 +130,6 @@ class NotationFragment : Fragment() {
             override fun onLongClick(position: Int) {
                 mAddLayerDialog = AddLayerDialog(
                     requireContext(),
-                    drawLayers[position].name,
                     object : AddLayerDialogListener {
                         override fun onSaveButtonClicked(layerName: String) {
                             mViewModel.sheetMusicPage.value?.let {
@@ -138,7 +137,8 @@ class NotationFragment : Fragment() {
                                 mViewModel.updateSheetMusicPage()
                             }
                         }
-                    }
+                    },
+                    drawLayers[position].name
                 )
                 mAddLayerDialog.show()
             }
@@ -294,7 +294,6 @@ class NotationFragment : Fragment() {
         notation_button_addLayer.setOnClickListener {
             mAddLayerDialog = AddLayerDialog(
                 requireContext(),
-                "",
                 object : AddLayerDialogListener {
                     override fun onSaveButtonClicked(layerName: String) {
                         mViewModel.addNewLayer(layerName)

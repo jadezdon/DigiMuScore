@@ -1,6 +1,7 @@
 package com.zhouppei.digimuscore.ui.home
 
 import androidx.hilt.lifecycle.ViewModelInject
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.zhouppei.digimuscore.data.models.Folder
@@ -22,7 +23,9 @@ class HomeViewModel @Inject constructor(
     val folders = folderRepository.getAll()
     val sheetMusics = sheetMusicRepository.getAll()
 
-    var currentFolder: Folder? = null
+    var currentFolder = MutableLiveData<Folder>()
+
+    val currentLayout = MutableLiveData("all")
 
     fun addSheetMusic(sheetMusic: SheetMusic) {
         viewModelScope.launch {
@@ -52,6 +55,12 @@ class HomeViewModel @Inject constructor(
     fun addFolder(folder: Folder) {
         viewModelScope.launch {
             folderRepository.insert(folder)
+        }
+    }
+
+    fun updateFolder(folder: Folder) {
+        viewModelScope.launch {
+            folderRepository.update(folder)
         }
     }
 

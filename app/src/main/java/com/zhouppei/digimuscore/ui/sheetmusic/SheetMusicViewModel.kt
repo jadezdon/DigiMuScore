@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.squareup.inject.assisted.Assisted
 import com.squareup.inject.assisted.AssistedInject
+import com.zhouppei.digimuscore.data.models.SheetMusic
 import com.zhouppei.digimuscore.data.models.SheetMusicPage
 import com.zhouppei.digimuscore.data.repositories.SheetMusicPageRepository
 import com.zhouppei.digimuscore.data.repositories.SheetMusicRepository
@@ -14,13 +15,19 @@ import com.zhouppei.digimuscore.utils.FileUtil
 import kotlinx.coroutines.launch
 
 class SheetMusicViewModel @AssistedInject constructor(
-    sheetMusicRepository: SheetMusicRepository,
+    private val sheetMusicRepository: SheetMusicRepository,
     private val sheetMusicPageRepository: SheetMusicPageRepository,
     @Assisted private val sheetMusicId: Int
 ) : ViewModel() {
 
     val sheetMusic = sheetMusicRepository.getById(sheetMusicId)
     val sheetMusicPages = sheetMusicPageRepository.getAllBySheetMusicId(sheetMusicId)
+
+    fun updateSheetMusic(sheetMusic: SheetMusic) {
+        viewModelScope.launch {
+            sheetMusicRepository.update(sheetMusic)
+        }
+    }
 
     fun addPage(contentUri: String, imageSize: Size) {
         viewModelScope.launch {

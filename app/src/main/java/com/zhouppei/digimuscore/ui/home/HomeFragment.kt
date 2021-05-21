@@ -63,15 +63,8 @@ class HomeFragment : Fragment() {
 
     private fun getFolderListener() = object : FolderClickListener {
         override fun onFolderClick(folder: Folder) {
-            mViewModel.sheetMusics.value?.let {
-                mSheetMusicListAdapter.submitList(it.filter { sheetMusic -> sheetMusic.folderId == folder.id })
-            }
-            mFolderListAdapter.submitList(emptyList())
-            home_fab_addFolder.visibility = View.GONE
-            home_main_topBar.visibility = View.GONE
-            home_folder_detail_topBar.visibility = View.VISIBLE
-            home_text_folderName.text = folder.name
-            mViewModel.currentFolder = folder
+            mViewModel.currentLayout.postValue(layoutFolderDetail)
+            mViewModel.currentFolder.postValue(folder)
         }
     }
 
@@ -133,7 +126,6 @@ class HomeFragment : Fragment() {
         requireContext(),
         object : ActionCompletionContract {
             override fun onViewMoved(oldPosition: Int, newPosition: Int) {
-
             }
 
             override fun onViewSwiped(position: Int) {
@@ -162,27 +154,45 @@ class HomeFragment : Fragment() {
         }
     )
 
-    private fun initViewModel(
-        folderListAdapter: FolderListAdapter,
-        sheetMusicListAdapter: SheetMusicListAdapter
-    ) {
-        mViewModel.currentFolder = null
+    private fun initViewModel(folderListAdapter: FolderListAdapter, sheetMusicListAdapter: SheetMusicListAdapter) {
+        mViewModel.currentFolder.postValue(null)
+
+        mViewModel.currentLayout.observe(viewLifecycleOwner, Observer {
+            when (it) {
+                layoutAll -> showMainPageContent()
+                layoutFavorites -> showFavoritesContent()
+                layoutFolderDetail -> mViewModel.currentFolder.value?.let { folder -> showFolderContent(folder) }
+            }
+        })
 
         mViewModel.folders.observe(viewLifecycleOwner, Observer { folders ->
-            folderListAdapter.submitList(folders.filter { folder -> folder.name != Constants.DEFAULT_FOLDER_NAME })
+            mViewModel.currentLayout.value?.let {
+                when (it) {
+                    layoutAll -> folderListAdapter.submitList(folders.filter { folder -> folder.name != Constants.DEFAULT_FOLDER_NAME })
+                    layoutFavorites, layoutFolderDetail -> folderListAdapter.submitList(emptyList())
+                }
+            }
+            mViewModel.currentFolder.value?.let {
+                mViewModel.currentFolder.postValue(folders.find { folder -> folder.id == it.id })
+            }
         })
 
         mViewModel.sheetMusics.observe(viewLifecycleOwner, Observer { sheetMusics ->
-            if (mViewModel.folders.value == null) {
-                sheetMusicListAdapter.submitList(sheetMusics.filter { sheetMusic -> sheetMusic.folderId == 1 })
-            }
-            mViewModel.folders.value?.let {
-                it.find { folder ->
-                    (mViewModel.currentFolder == null && folder.name == Constants.DEFAULT_FOLDER_NAME)
-                            || (mViewModel.currentFolder != null && folder.id == mViewModel.currentFolder!!.id)
-                }?.let { folder ->
-                    sheetMusicListAdapter.submitList(sheetMusics.filter { sheetMusic -> sheetMusic.folderId == folder.id })
+            mViewModel.currentLayout.value?.let {
+                when (it) {
+                    layoutAll -> sheetMusicListAdapter.submitList(sheetMusics.filter { sheetMusic -> sheetMusic.folderId == 1 })
+                    layoutFavorites -> sheetMusicListAdapter.submitList(sheetMusics.filter { sheetMusic -> sheetMusic.isFavorite })
+                    layoutFolderDetail -> mViewModel.currentFolder.value?.let {
+                        sheetMusicListAdapter.submitList(sheetMusics.filter { sheetMusic -> sheetMusic.folderId == it.id })
+                    }
+                    else -> sheetMusicListAdapter.submitList(sheetMusics.filter { sheetMusic -> sheetMusic.folderId == 1 })
                 }
+            }
+        })
+
+        mViewModel.currentFolder.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                home_text_folderName.text = it.name
             }
         })
     }
@@ -190,15 +200,9 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        home_button_all.setOnClickListener { showMainPageContent() }
+        home_button_all.setOnClickListener { mViewModel.currentLayout.postValue(layoutAll) }
 
-        home_button_favorite.setOnClickListener {
-            mViewModel.sheetMusics.value?.let {
-                mSheetMusicListAdapter.submitList(it.filter { sheetMusic -> sheetMusic.isFavorite })
-            }
-            mFolderListAdapter.submitList(emptyList())
-            home_fab_addFolder.visibility = View.GONE
-        }
+        home_button_favorite.setOnClickListener { mViewModel.currentLayout.postValue(layoutFavorites) }
 
         home_fab_addSheetMusic.setOnClickListener {
             mAddSheetMusicDialog =
@@ -207,17 +211,18 @@ class HomeFragment : Fragment() {
                     object :
                         AddSheetMusicDialogListener {
                         override fun onAddButtonClicked(
-                            author: String,
-                            title: String
+                            sheetmusic: SheetMusic
                         ) {
-                            val folderId = if (mViewModel.currentFolder == null) 1 else mViewModel.currentFolder!!.id
-                            val sheetMusic = SheetMusic(
-                                author = author,
-                                title = title,
-                                folderId = folderId,
-                                isFavorite = false
-                            )
-                            mViewModel.addSheetMusic(sheetMusic)
+                            if (sheetmusic.id == 0) {
+                                val folderId = if (mViewModel.currentFolder.value == null) 1 else mViewModel.currentFolder.value!!.id
+                                sheetmusic.let {
+                                    it.folderId = folderId
+                                    it.isFavorite = false
+                                    mViewModel.addSheetMusic(it)
+                                }
+                            } else {
+                                mViewModel.updateSheetMusic(sheetmusic)
+                            }
                         }
                     })
             mAddSheetMusicDialog.show()
@@ -227,22 +232,28 @@ class HomeFragment : Fragment() {
             mAddFolderDialog = AddFolderDialog(
                 requireContext(),
                 object : AddFolderDialogListener {
-                    override fun onAddFolderButtonClicked(folderName: String) {
-                        mViewModel.addFolder(Folder(name = folderName))
+                    override fun onAddFolderButtonClicked(folder: Folder) {
+                        mViewModel.addFolder(folder)
                     }
                 })
             mAddFolderDialog.show()
         }
 
-        home_button_back.setOnClickListener { showMainPageContent() }
+        home_button_back.setOnClickListener { mViewModel.currentLayout.postValue(layoutAll) }
 
         registerForContextMenu(home_button_optionMenu)
+        registerForContextMenu(home_button_folderOptionMenu)
         home_button_optionMenu.setOnClickListener { it.showContextMenu() }
+        home_button_folderOptionMenu.setOnClickListener { it.showContextMenu() }
     }
 
     override fun onCreateContextMenu(menu: ContextMenu, v: View, menuInfo: ContextMenu.ContextMenuInfo?) {
         super.onCreateContextMenu(menu, v, menuInfo)
-        optionMenuItems.forEach { menu.add(0, v.id, 0, it) }
+        if (mViewModel.currentFolder.value == null) {
+            homeOptionMenuItems.forEach { menu.add(0, v.id, 0, it) }
+        } else {
+            folderOptionMenuItems.forEach { menu.add(0, v.id, 0, it) }
+        }
     }
 
     override fun onContextItemSelected(item: MenuItem): Boolean {
@@ -250,6 +261,19 @@ class HomeFragment : Fragment() {
             "Settings" -> {
                 val direction = HomeFragmentDirections.actionHomeFragmentToSettingsActivity()
                 findNavController().navigate(direction)
+                true
+            }
+            "Rename" -> {
+                mAddFolderDialog = AddFolderDialog(
+                    requireContext(),
+                    object : AddFolderDialogListener {
+                        override fun onAddFolderButtonClicked(folder: Folder) {
+                            mViewModel.updateFolder(folder)
+                        }
+                    },
+                    mViewModel.currentFolder.value
+                )
+                mAddFolderDialog.show()
                 true
             }
             else -> false
@@ -268,7 +292,26 @@ class HomeFragment : Fragment() {
         home_fab_addFolder.visibility = View.VISIBLE
         home_main_topBar.visibility = View.VISIBLE
         home_folder_detail_topBar.visibility = View.GONE
-        mViewModel.currentFolder = null
+        mViewModel.currentFolder.postValue(null)
+    }
+
+    private fun showFavoritesContent() {
+        mViewModel.sheetMusics.value?.let {
+            mSheetMusicListAdapter.submitList(it.filter { sheetMusic -> sheetMusic.isFavorite })
+        }
+        mFolderListAdapter.submitList(emptyList())
+        home_fab_addFolder.visibility = View.GONE
+    }
+
+    private fun showFolderContent(folder: Folder) {
+        mViewModel.sheetMusics.value?.let {
+            mSheetMusicListAdapter.submitList(it.filter { sheetMusic -> sheetMusic.folderId == folder.id })
+        }
+        mFolderListAdapter.submitList(emptyList())
+        home_fab_addFolder.visibility = View.GONE
+        home_main_topBar.visibility = View.GONE
+        home_folder_detail_topBar.visibility = View.VISIBLE
+        home_text_folderName.text = folder.name
     }
 
     override fun onDestroy() {
@@ -285,6 +328,10 @@ class HomeFragment : Fragment() {
 
     companion object {
         private val TAG = HomeFragment::class.qualifiedName
-        private val optionMenuItems = listOf("Settings")
+        private val homeOptionMenuItems = listOf("Settings")
+        private val folderOptionMenuItems = listOf("Rename")
+        private val layoutAll = "all"
+        private val layoutFavorites = "favorites"
+        private val layoutFolderDetail = "folderDetail"
     }
 }

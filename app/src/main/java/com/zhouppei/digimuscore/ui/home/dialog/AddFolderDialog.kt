@@ -6,12 +6,14 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatDialog
 import com.zhouppei.digimuscore.R
+import com.zhouppei.digimuscore.data.models.Folder
 import com.zhouppei.digimuscore.utils.Constants
 import kotlinx.android.synthetic.main.dialog_add_folder.*
 
 class AddFolderDialog(
     context: Context,
-    private var addFolderDialogListener: AddFolderDialogListener
+    private var addFolderDialogListener: AddFolderDialogListener,
+    private val folder: Folder? = null
 ) : AppCompatDialog(context) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,10 +24,16 @@ class AddFolderDialog(
         window?.setLayout((metrics.widthPixels * 0.8).toInt(), ViewGroup.LayoutParams.WRAP_CONTENT)
         window?.setBackgroundDrawableResource(R.drawable.background_dialog)
 
+        folder?.let {
+            addFolder_editText_folderName.setText(it.name)
+            addFolder_button_save.text = "SAVE"
+            addFolder_dialogTitle.text = "Edit folder"
+        }
+
         addFolder_button_save.setOnClickListener {
             val folderName = addFolder_editText_folderName.text.toString().trim()
 
-            if (folderName.isEmpty()) {
+            if (folderName.isBlank()) {
                 Toast.makeText(context, "Name cannot be empty", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
@@ -34,12 +42,19 @@ class AddFolderDialog(
                 return@setOnClickListener
             }
 
-            addFolderDialogListener.onAddFolderButtonClicked(folderName)
+            if (folder == null) {
+                addFolderDialogListener.onAddFolderButtonClicked(Folder(name = folderName))
+            } else {
+                folder.let {
+                    it.name = folderName
+                    addFolderDialogListener.onAddFolderButtonClicked(it)
+                }
+            }
             dismiss()
         }
     }
 }
 
 interface AddFolderDialogListener {
-    fun onAddFolderButtonClicked(folderName: String)
+    fun onAddFolderButtonClicked(folder: Folder)
 }

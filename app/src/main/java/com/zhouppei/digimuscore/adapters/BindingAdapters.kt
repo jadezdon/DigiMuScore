@@ -43,12 +43,3 @@ fun bindDrawLayerToBitmap(view: ImageView, drawLayers: MutableList<DrawLayer>?) 
 fun bindIsVisible(view: View, isVisible: Boolean) {
     view.visibility = if (isVisible) View.VISIBLE else View.GONE
 }
-
-//@BindingAdapter(value = ["currentPageNumber", "maxPageNumber"])
-//fun bindPrevAndNextPageFabVisibility(view: View, currentPageNumber: Int, totalPageNumber: Int) {
-//    view.visibility = if (currentPageNumber > 0 || currentPageNumber + 1 < totalPageNumber) {
-//        View.GONE
-//    } else {
-//        View.VISIBLE
-//    }
-//}

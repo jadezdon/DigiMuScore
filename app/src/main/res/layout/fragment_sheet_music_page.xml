@@ -58,6 +58,13 @@
             android:layout_below="@id/sheetMusicPage_toolbar_top"
             app:imageFromUri="@{viewmodel.currentPage.contentUri}" />
 
+        <ImageView
+            android:id="@+id/sheetMusic_image_drawLayer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/sheetMusicPage_toolbar_top"
+            app:drawLayerToBitmap="@{viewmodel.currentPage.drawLayers}"/>
+
     </RelativeLayout>
 
 </layout>

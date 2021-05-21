@@ -7,6 +7,7 @@ import com.squareup.inject.assisted.Assisted
 import com.squareup.inject.assisted.AssistedInject
 import com.zhouppei.digimuscore.data.models.SheetMusicPage
 import com.zhouppei.digimuscore.data.repositories.SheetMusicPageRepository
+import com.zhouppei.digimuscore.notation.DrawLayer
 import dagger.assisted.AssistedFactory
 
 class SheetMusicPageViewModel @AssistedInject constructor(

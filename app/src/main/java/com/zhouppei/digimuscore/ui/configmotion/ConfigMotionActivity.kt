@@ -72,7 +72,7 @@ class ConfigMotionActivity : AppCompatActivity() {
         }
 
         configMotion_leftThreshold_help.setOnClickListener {
-            Snackbar.make(it, "", Snackbar.LENGTH_SHORT).show()
+            Snackbar.make(it, "The max angle the head needs to tilt left to turn page.", Snackbar.LENGTH_SHORT).show()
         }
     }
 
@@ -87,7 +87,7 @@ class ConfigMotionActivity : AppCompatActivity() {
         }
 
         configMotion_rightThreshold_help.setOnClickListener {
-            Snackbar.make(it, "", Snackbar.LENGTH_SHORT).show()
+            Snackbar.make(it, "The max angle the head needs to tilt right to turn page.", Snackbar.LENGTH_SHORT).show()
         }
     }
 
@@ -190,7 +190,7 @@ class ConfigMotionActivity : AppCompatActivity() {
                     runOnUiThread {
                         configMotion_face_not_detected.visibility =
                             if (motionResult == MotionResult.NOFACE) View.VISIBLE else View.GONE
-//                        configMotion_cameraView.setImageBitmap(bitmap)
+                        configMotion_cameraView.setImageBitmap(bitmap)
                         when (motionResult) {
                             MotionResult.LEFT -> Toast.makeText(baseContext, "LEFT", Toast.LENGTH_SHORT).show()
                             MotionResult.RIGHT -> Toast.makeText(baseContext, "RIGHT", Toast.LENGTH_SHORT).show()
@@ -211,6 +211,7 @@ class ConfigMotionActivity : AppCompatActivity() {
             mCameraProvider.bindToLifecycle(this, mCameraSelector, mImageAnalysis)
             configMotion_button_start.visibility = View.GONE
             configMotion_button_stop.visibility = View.VISIBLE
+            configMotion_cameraView.visibility = View.VISIBLE
         }
     }
 
@@ -219,6 +220,7 @@ class ConfigMotionActivity : AppCompatActivity() {
             mCameraProvider.unbindAll()
             configMotion_button_start.visibility = View.VISIBLE
             configMotion_button_stop.visibility = View.GONE
+            configMotion_cameraView.visibility = View.GONE
         }
     }
 

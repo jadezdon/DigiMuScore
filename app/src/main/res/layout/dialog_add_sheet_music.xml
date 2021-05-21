@@ -10,6 +10,7 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/addSheetMusic_dialogTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/formGroup_marginBottom"
@@ -18,49 +19,31 @@
             android:textSize="@dimen/font_size_heading_2" />
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/home_editText_sheetMusicTitle"
+            android:id="@+id/addSheetMusic_editText_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/formGroup_marginBottom"
             android:hint="Title" />
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/home_editText_sheetMusicAuthor"
+            android:id="@+id/addSheetMusic_editText_author"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/formGroup_marginBottom"
             android:hint="Author name" />
 
-        <RelativeLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/addSheetMusic_button_add"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp">
-
-            <TextView
-                android:id="@+id/home_button_cancel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:clickable="true"
-                android:focusable="true"
-                android:text="Cancel"
-                android:textAllCaps="true"
-                android:textColor="@color/lightred"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/home_button_add_sheet_music"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:clickable="true"
-                android:focusable="true"
-                android:text="Create"
-                android:textAllCaps="true"
-                android:textColor="@color/lightgreen"
-                android:textStyle="bold" />
-
-        </RelativeLayout>
+            android:layout_gravity="end"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="Create"
+            android:textAllCaps="true"
+            android:textColor="@color/lightgreen"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"/>
 
     </LinearLayout>
 
