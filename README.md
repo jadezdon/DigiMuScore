@@ -1,6 +1,5 @@
 # DigiMuScore
-DigiMuScore is a sheet music manager Android application. You can organize sheet musics in folder, annotate them,  
-and automatic page turning based on head motions. 
+DigiMuScore is a sheet music manager Android application. You can organize sheet musics in folder, annotate them, and automatic page turning based on head motions. 
 
 ## Getting Started
 
