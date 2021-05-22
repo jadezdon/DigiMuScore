@@ -67,7 +67,6 @@ class SheetMusicViewModel @AssistedInject constructor(
 
     fun deletePage(sheetMusicPage: SheetMusicPage) {
         viewModelScope.launch {
-            FileUtil.deleteAllRelatedFiles(sheetMusicPage.contentUri)
             sheetMusicPageRepository.delete(sheetMusicPage)
         }
     }

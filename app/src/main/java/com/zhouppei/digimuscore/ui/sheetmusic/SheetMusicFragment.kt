@@ -4,6 +4,7 @@ import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.os.Environment
 import android.util.Size
 import android.view.*
 import android.view.animation.Animation
@@ -103,8 +104,13 @@ class SheetMusicFragment : Fragment() {
 
             override fun onViewSwiped(position: Int) {
                 val tempList = adapter.currentList.toMutableList()
-                mViewModel.deletePage(tempList.removeAt(position))
+                val page = tempList.removeAt(position)
+                mViewModel.deletePage(page)
                 adapter.submitList(tempList)
+
+                FileUtil.deleteFile(
+                    page.contentUri
+                )
             }
 
             override fun clearView() {
@@ -240,7 +246,7 @@ class SheetMusicFragment : Fragment() {
                         val contentUri = FileUtil.copyFile(
                             uri,
                             requireContext(),
-                            FileUtil.getFileNameNoExt()
+                            FileUtil.getFileNameNoExt(mArgs.sheetMusicId)
                         ).path.toString()
                         val bitmap = BitmapFactory.decodeFile(contentUri)
                         mViewModel.addPage(contentUri, Size(bitmap.width, bitmap.height))
@@ -251,7 +257,7 @@ class SheetMusicFragment : Fragment() {
                         val contentUri = FileUtil.copyFile(
                             uri,
                             requireContext(),
-                            FileUtil.getFileNameNoExt()
+                            FileUtil.getFileNameNoExt(mArgs.sheetMusicId)
                         ).path.toString()
                         val tempFile = File(contentUri)
                         val bitmaps = BitmapUtil.pdfToBitmap(tempFile)
@@ -262,8 +268,7 @@ class SheetMusicFragment : Fragment() {
                         bitmaps?.forEach { bitmap ->
                             val destinationFile = FileUtil.createOrGetFile(
                                 requireContext(),
-                                "Sheetmusics",
-                                "${FileUtil.getFileNameNoExt()}.png"
+                                "${FileUtil.getFileNameNoExt(mArgs.sheetMusicId)}.png"
                             )
 
                             BitmapUtil.saveBitmapToFile(bitmap, destinationFile.path.toString())

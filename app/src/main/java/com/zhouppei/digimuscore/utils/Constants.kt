@@ -6,6 +6,7 @@ object Constants {
     const val SHEET_MUSIC_DATA_FILENAME = "sheetMusics.json"
     const val SHEET_MUSIC_KISS_THE_RAIN_FILENAME = "kiss_the_rain.pdf"
     const val DATABASE_NAME = "MusicNotation.db"
+    const val SHEET_MUSIC_FOLDER_NAME = "Sheetmusics"
 
     const val REQUESTCODE_SELECT_IMAGE = 10
     const val REQUESTCODE_SELECT_PDF = 11

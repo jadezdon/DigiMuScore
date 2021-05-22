@@ -28,16 +28,8 @@ class SeedDatabaseWorker(
         try {
             val database = AppDatabase.getInstance(applicationContext)
 
-            applicationContext.assets.open(Constants.SHEET_MUSIC_DATA_FILENAME).use { inputStream ->
-                JsonReader(inputStream.reader()).use { jsonReader ->
-                    val sheetMusicType = object : TypeToken<List<SheetMusic>>() {}.type
-                    val sheetMusicList: List<SheetMusic> =
-                        Gson().fromJson(jsonReader, sheetMusicType)
-
-                    database.folderDao().insert(Folder(0, "Default"))
-                    database.sheetMusicDao().insertAll(*sheetMusicList.toTypedArray())
-                }
-            }
+            database.folderDao().insert(Folder(0, "Default"))
+            database.sheetMusicDao().insert(SheetMusic(1, 1, "Yiruma", "Kiss the rain", false))
             applicationContext.assets.open(Constants.SHEET_MUSIC_KISS_THE_RAIN_FILENAME).use { inputStream ->
                 inputStream.use { input ->
                     val pages = getSheetMusicPagesFromInputStream(input)
@@ -54,8 +46,7 @@ class SeedDatabaseWorker(
     private fun getSheetMusicPagesFromInputStream(input: InputStream): ArrayList<SheetMusicPage> {
         val tempFile = FileUtil.createOrGetFile(
             context,
-            "Sheetmusics",
-            "${FileUtil.getFileNameNoExt()}.png"
+            "${FileUtil.getFileNameNoExt(1)}.png"
         )
         FileOutputStream(tempFile).use { output ->
             val buffer = ByteArray(4 * 1024) // buffer size
@@ -74,8 +65,7 @@ class SeedDatabaseWorker(
         bitmaps?.forEach { bitmap ->
             val destinationFile = FileUtil.createOrGetFile(
                 context,
-                "Sheetmusics",
-                "${FileUtil.getFileNameNoExt()}.png"
+                "${FileUtil.getFileNameNoExt(1)}.png"
             )
 
             BitmapUtil.saveBitmapToFile(bitmap, destinationFile.path.toString())

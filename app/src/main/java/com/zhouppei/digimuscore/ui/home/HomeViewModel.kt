@@ -1,5 +1,6 @@
 package com.zhouppei.digimuscore.ui.home
 
+import android.util.Log
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,8 +10,10 @@ import com.zhouppei.digimuscore.data.models.SheetMusic
 import com.zhouppei.digimuscore.data.repositories.FolderRepository
 import com.zhouppei.digimuscore.data.repositories.SheetMusicPageRepository
 import com.zhouppei.digimuscore.data.repositories.SheetMusicRepository
+import com.zhouppei.digimuscore.utils.FileUtil
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import java.io.File
 import javax.inject.Inject
 
 @HiltViewModel
@@ -37,6 +40,15 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch {
             sheetMusicRepository.delete(sheetMusic)
             sheetMusicPageRepository.deleteAllBySheetMusicId(sheetMusic.id)
+        }
+    }
+
+    fun deleteAllSheetMusic(sheetMusics: List<SheetMusic>) {
+        viewModelScope.launch {
+            sheetMusics.forEach { sheetMusic ->
+                sheetMusicRepository.delete(sheetMusic)
+                sheetMusicPageRepository.deleteAllBySheetMusicId(sheetMusic.id)
+            }
         }
     }
 
@@ -78,5 +90,6 @@ class HomeViewModel @Inject constructor(
 
     companion object {
         private const val DEFAULT_FOLDER_ID = 0
+        private val TAG = HomeViewModel::class.qualifiedName
     }
 }

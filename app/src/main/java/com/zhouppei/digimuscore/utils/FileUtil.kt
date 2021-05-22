@@ -13,7 +13,6 @@ object FileUtil {
     fun copyFile(uri: Uri, context: Context, fileNameNoExt: String): Uri {
         val destinationFile = createOrGetFile(
             context,
-            "Sheetmusics",
             "$fileNameNoExt.png"
         )
 
@@ -40,8 +39,8 @@ object FileUtil {
     }
 
     @JvmStatic
-    fun createOrGetFile(context: Context, folderName: String, fileName: String): File {
-        val folder = File(context.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)!!, folderName)
+    fun createOrGetFile(context: Context, fileName: String): File {
+        val folder = File(context.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)!!, Constants.SHEET_MUSIC_FOLDER_NAME)
 
         if (!folder.exists())
             folder.mkdir()
@@ -54,14 +53,24 @@ object FileUtil {
     }
 
     @JvmStatic
-    fun getFileNameNoExt(): String {
+    fun getFileNameNoExt(sheetMusicId: Int): String {
         val simpleDateFormat = SimpleDateFormat("yyMMddHHmmssSSS", Locale.getDefault())
         val currentDateAndTime: String = simpleDateFormat.format(Date())
-        return "sheetmusic-${currentDateAndTime}"
+        return "sheetmusic${sheetMusicId}-${currentDateAndTime}"
     }
 
     @JvmStatic
     fun deleteAllRelatedFiles(uri: String) {
+        val folderName = uri.substringBeforeLast("/") + "/"
+        val fileNamePrefixNoExt = uri.substringAfterLast("/").substringBeforeLast("-")
+        File(folderName).walk().forEach { file ->
+            if (file.name.contains(fileNamePrefixNoExt))
+                file.delete()
+        }
+    }
+
+    @JvmStatic
+    fun deleteFile(uri: String) {
         val folderName = uri.substringBeforeLast("/") + "/"
         val fileNameNoExt = uri.substringAfterLast("/").substringBeforeLast(".")
         File(folderName).walk().forEach { file ->

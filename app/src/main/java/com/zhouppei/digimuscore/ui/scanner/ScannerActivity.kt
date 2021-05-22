@@ -43,6 +43,8 @@ class ScannerActivity : AppCompatActivity() {
     private var mDocumentPoints = FloatArray(8)
     private var mCurrentMode = MODE_CAPTURE
 
+    private var sheetMusicId = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         window?.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
@@ -56,6 +58,8 @@ class ScannerActivity : AppCompatActivity() {
                 this, REQUIRED_PERMISSIONS, Constants.REQUESTCODE_CAMERA_PERMISSION
             )
         }
+
+        sheetMusicId = intent.getIntExtra("sheetMusicId", 0)
 
         cameraExecutor = Executors.newSingleThreadExecutor()
 
@@ -118,8 +122,7 @@ class ScannerActivity : AppCompatActivity() {
         val intent = Intent().apply {
             val destinationFile = FileUtil.createOrGetFile(
                 applicationContext,
-                "Sheetmusics",
-                "${FileUtil.getFileNameNoExt()}.png"
+                "${FileUtil.getFileNameNoExt(sheetMusicId)}.png"
             )
             BitmapUtil.saveBitmapToFile(mDocumentBitmap, destinationFile.path.toString())
             putExtra("contentUri", destinationFile.path.toString())

@@ -18,6 +18,7 @@ import com.zhouppei.digimuscore.utils.Constants
 import com.zhouppei.digimuscore.utils.FileUtil
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_home.*
+import java.io.File
 import java.util.*
 
 @AndroidEntryPoint
@@ -105,12 +106,23 @@ class HomeFragment : Fragment() {
                     MaterialAlertDialogBuilder(c)
                         .setTitle("Delete folder")
                         .setMessage("Are you sure you want to delete ${adapter.currentList[position].name} folder?")
-                        .setNegativeButton("No") { dialog, which ->
+                        .setNegativeButton("No") { _, _ ->
                             adapter.notifyItemChanged(position)
                         }
-                        .setPositiveButton("Yes") { dialog, which ->
-                            mViewModel.deleteFolder(adapter.currentList[position])
-                            adapter.notifyDataSetChanged()
+                        .setPositiveButton("Yes") { _, _ ->
+                            val deletedFolder = adapter.currentList[position]
+                            mViewModel.deleteFolder(deletedFolder)
+                            adapter.notifyItemRemoved(position)
+                            mViewModel.sheetMusics.value?.let {
+                                it.filter { sheetMusic -> sheetMusic.folderId == deletedFolder.id }.let { sheetMusics ->
+                                    mViewModel.deleteAllSheetMusic(sheetMusics)
+                                    sheetMusics.forEach { sheetMusic ->
+                                        FileUtil.deleteAllRelatedFiles(
+                                            "${context?.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)!!}/${Constants.SHEET_MUSIC_FOLDER_NAME}/sheetmusic${sheetMusic.id}"
+                                        )
+                                    }
+                                }
+                            }
                         }
                         .show()
                 }
@@ -133,16 +145,17 @@ class HomeFragment : Fragment() {
                     MaterialAlertDialogBuilder(c)
                         .setTitle("Delete sheet music")
                         .setMessage("Are you sure you want to delete ${adapter.currentList[position].title} sheet music?")
-                        .setNegativeButton("No") { dialog, which ->
+                        .setNegativeButton("No") { _, _ ->
                             adapter.notifyItemChanged(position)
                         }
-                        .setPositiveButton("Yes") { dialog, which ->
+                        .setPositiveButton("Yes") { _, _ ->
                             val sheetMusic = adapter.currentList[position]
-                            FileUtil.deleteAllRelatedFiles(
-                                "${context!!.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)!!.path}/Sheetmusics/sheetmusic-${sheetMusic.id}"
-                            )
                             mViewModel.deleteSheetMusic(sheetMusic)
-                            adapter.notifyDataSetChanged()
+                            adapter.notifyItemRemoved(position)
+
+                            FileUtil.deleteAllRelatedFiles(
+                                "${context?.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)!!}/${Constants.SHEET_MUSIC_FOLDER_NAME}/sheetmusic${sheetMusic.id}"
+                            )
                         }
                         .show()
                 }

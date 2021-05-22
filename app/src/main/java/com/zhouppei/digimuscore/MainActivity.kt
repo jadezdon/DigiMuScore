@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(
                 this,
                 "To use application read permission needs to be granted. Go to Settings > Apps > DigiMuScore grant storage permission",
-                Toast.LENGTH_SHORT
+                Toast.LENGTH_LONG
             ).show()
             finish()
         }
@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(
                 this,
                 "To use application write permission needs to be granted. Go to Settings > Apps > DigiMuScore grant storage permission",
-                Toast.LENGTH_SHORT
+                Toast.LENGTH_LONG
             ).show()
             finish()
         }
